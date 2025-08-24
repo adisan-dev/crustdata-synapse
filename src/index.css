@@ -17,7 +17,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 0%;
 
-    --primary: 0 65% 55%;
+    --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 100%;
@@ -26,7 +26,7 @@
     --muted: 220 13% 85%;
     --muted-foreground: 0 0% 40%;
 
-    --accent: 0 65% 55%;
+    --accent: 217 91% 60%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -34,7 +34,7 @@
 
     --border: 0 0% 0%;
     --input: 0 0% 100%;
-    --ring: 0 65% 55%;
+    --ring: 217 91% 60%;
 
     --radius: 0rem;
 
@@ -103,6 +103,10 @@
     @apply bg-background text-foreground font-mono;
     background-image: radial-gradient(circle, hsl(0 0% 60%) 1px, transparent 1px);
     background-size: 20px 20px;
+  }
+
+  .dark body {
+    background-image: radial-gradient(circle, hsl(0 0% 30%) 1px, transparent 1px);
   }
   
   .terminal-border {

@@ -1,16 +1,32 @@
 import { Header } from '@/components/layout/Header';
 import { ChatInterface } from '@/components/chat/ChatInterface';
+import { Sidebar } from '@/components/layout/Sidebar';
+import { ChatProvider } from '@/contexts/ChatContext';
+import { useChatContext } from '@/contexts/ChatContext';
+
+const IndexContent = () => {
+  const { isSidebarOpen, toggleSidebar } = useChatContext();
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Sidebar isOpen={isSidebarOpen} onToggle={toggleSidebar} />
+      <div className={`transition-all duration-300 ${isSidebarOpen ? 'ml-80' : 'ml-0'}`}>
+        <Header />
+        <main className="h-[calc(100vh-120px)]">
+          <div className="terminal-border mx-4 h-full">
+            <ChatInterface />
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+};
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main className="h-[calc(100vh-120px)]">
-        <div className="terminal-border mx-4 h-full">
-          <ChatInterface />
-        </div>
-      </main>
-    </div>
+    <ChatProvider>
+      <IndexContent />
+    </ChatProvider>
   );
 };
 

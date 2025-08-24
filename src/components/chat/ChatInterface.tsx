@@ -1,8 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Send, Bot, User } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useChatContext } from '@/contexts/ChatContext';
 
 interface Message {
   id: string;
@@ -12,16 +13,7 @@ interface Message {
 }
 
 export function ChatInterface() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      content: 'Hello! I\'m your AI assistant. How can I help you today?',
-      role: 'assistant',
-      timestamp: new Date(),
-    },
-  ]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const { messages, setMessages, input, setInput, isLoading, setIsLoading } = useChatContext();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -120,7 +112,7 @@ export function ChatInterface() {
               <Bot className="h-4 w-4 text-accent-foreground animate-pulse" />
             </div>
             <div className="message-assistant p-3">
-              <p className="text-sm">Thinking...</p>
+              <p className="text-sm">Searching for candidates...</p>
             </div>
           </div>
         )}
@@ -135,7 +127,7 @@ export function ChatInterface() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Type your message..."
+            placeholder="Describe your ideal candidate (e.g., 'Senior React developer with 5+ years experience in San Francisco')..."
             disabled={isLoading}
             className="flex-1 terminal-border bg-input"
           />
