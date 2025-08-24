@@ -20,7 +20,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter basename={"crustdata-synapse"}>
+        <BrowserRouter basename={"/crustdata-synapse"}>
           <Routes>
             <Route path="/" element={<Index />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
