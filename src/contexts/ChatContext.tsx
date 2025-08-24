@@ -41,7 +41,7 @@ const ChatContext = createContext<ChatContextType | undefined>(undefined);
 
 const initialMessage: Message = {
   id: '1',
-  content: 'Welcome to Easy2Recruit! 🎯 I\'m your AI recruitment assistant. Describe your ideal candidate requirements (skills, experience, location, etc.) and I\'ll help you find the best leads for your team. What type of candidate are you looking for?',
+  content: 'Welcome to Synapse! 🧠 I\'m your AI recruitment assistant. Describe your ideal candidate requirements (skills, experience, location, etc.) and I\'ll help you find just the perfect candidates! What type of candidate are you looking for?',
   role: 'assistant',
   timestamp: new Date(),
 };
@@ -58,7 +58,7 @@ const mockInitialHistory: ChatSession[] = [
     messages: [
       {
         id: '1',
-        content: 'Welcome to Easy2Recruit! 🎯 I\'m your AI recruitment assistant.',
+        content: 'Welcome to Synapse! 🎯 I\'m your AI recruitment assistant.',
         role: 'assistant',
         timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
       },
@@ -80,7 +80,7 @@ const mockInitialHistory: ChatSession[] = [
     messages: [
       {
         id: '1',
-        content: 'Welcome to Easy2Recruit! 🎯 I\'m your AI recruitment assistant.',
+        content: 'Welcome to Synapse! 🎯 I\'m your AI recruitment assistant.',
         role: 'assistant',
         timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000),
       }

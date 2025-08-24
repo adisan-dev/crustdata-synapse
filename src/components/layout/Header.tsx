@@ -22,16 +22,16 @@ export function Header() {
   return (
     <header className="terminal-border p-4 m-4">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">EASY2RECRUIT</h1>
-          <p className="text-sm text-muted-foreground">Get the best candidate leads for your team!</p>
+        <div className="flex-1 min-w-0">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight">SYNAPSE</h1>
+          <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">The best talent. At the Speed of Thought.</p>
         </div>
         
-        <div className="flex gap-2">
+        <div className="flex gap-1 sm:gap-2 flex-shrink-0">
           <Button 
             variant="outline" 
             size="sm" 
-            className="terminal-border"
+            className="terminal-border p-2 sm:px-3"
             onClick={toggleTheme}
           >
             {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -39,18 +39,20 @@ export function Header() {
           <Button 
             variant="outline" 
             size="sm" 
-            className="terminal-border"
+            className="terminal-border px-2 sm:px-3"
             onClick={handleClearSearch}
           >
-            Clear Search
+            <span className="hidden sm:inline">Clear Search</span>
+            <span className="sm:hidden">Clear</span>
           </Button>
           <Button 
             variant="default" 
             size="sm" 
-            className="terminal-border bg-primary hover:bg-primary/90"
+            className="terminal-border bg-primary hover:bg-primary/90 px-2 sm:px-3"
             onClick={handleNewSearch}
           >
-            New Search
+            <span className="hidden sm:inline">New Search</span>
+            <span className="sm:hidden">New</span>
           </Button>
         </div>
       </div>

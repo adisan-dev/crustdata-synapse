@@ -68,10 +68,9 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
     <>
       {/* Sidebar */}
       <div
-        className={`fixed left-0 top-0 h-full bg-background border-r border-border transition-transform duration-300 z-40 ${
+        className={`fixed left-0 top-0 h-full bg-background border-r border-border transition-transform duration-300 z-40 w-80 lg:w-80 sm:w-72 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
-        style={{ width: '320px' }}
       >
         <div className="flex flex-col h-full">
           {/* Header */}

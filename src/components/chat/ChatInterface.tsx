@@ -4,13 +4,10 @@ import { Input } from '@/components/ui/input';
 import { Send, Bot, User } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useChatContext } from '@/contexts/ChatContext';
+import { apiService, type ChatMessage } from '@/services/api';
 
-interface Message {
-  id: string;
-  content: string;
-  role: 'user' | 'assistant';
-  timestamp: Date;
-}
+// Use the ChatMessage interface from the API service
+type Message = ChatMessage;
 
 export function ChatInterface() {
   const { messages, setMessages, input, setInput, isLoading, setIsLoading } = useChatContext();
@@ -36,25 +33,31 @@ export function ChatInterface() {
     };
 
     setMessages(prev => [...prev, userMessage]);
+    const messageContent = input.trim();
     setInput('');
     setIsLoading(true);
 
     try {
-      // Simulate AI response
-      setTimeout(() => {
-        const assistantMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          content: `I understand you said: "${userMessage.content}". This is a demo response. In a real implementation, this would connect to an LLM API.`,
-          role: 'assistant',
-          timestamp: new Date(),
-        };
-        setMessages(prev => [...prev, assistantMessage]);
-        setIsLoading(false);
-      }, 1000);
+      // Call the API service with conversation history
+      const response = await apiService.sendChatMessage({
+        messages: messages,
+        currentMessage: messageContent,
+      });
+
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: response.message,
+        role: 'assistant',
+        timestamp: new Date(),
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
+      setIsLoading(false);
     } catch (error) {
+      console.error('Chat API error:', error);
       toast({
         title: 'Error',
-        description: 'Failed to send message. Please try again.',
+        description: error instanceof Error ? error.message : 'Failed to send message. Please try again.',
         variant: 'destructive',
       });
       setIsLoading(false);
@@ -75,22 +78,22 @@ export function ChatInterface() {
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`flex items-start gap-3 ${
+            className={`flex items-start gap-2 sm:gap-3 ${
               message.role === 'user' ? 'justify-end' : 'justify-start'
             }`}
           >
             {message.role === 'assistant' && (
-              <div className="terminal-border p-2 bg-accent">
-                <Bot className="h-4 w-4 text-accent-foreground" />
+              <div className="terminal-border p-1.5 sm:p-2 bg-accent flex-shrink-0">
+                <Bot className="h-3 w-3 sm:h-4 sm:w-4 text-accent-foreground" />
               </div>
             )}
             
             <div
-              className={`max-w-[70%] p-3 ${
+              className={`max-w-[85%] sm:max-w-[70%] p-2 sm:p-3 ${
                 message.role === 'user' ? 'message-user' : 'message-assistant'
               }`}
             >
-              <p className="text-sm font-medium leading-relaxed">
+              <p className="text-xs sm:text-sm font-medium leading-relaxed">
                 {message.content}
               </p>
               <p className="text-xs text-muted-foreground mt-1">
@@ -99,8 +102,8 @@ export function ChatInterface() {
             </div>
 
             {message.role === 'user' && (
-              <div className="terminal-border p-2 bg-muted">
-                <User className="h-4 w-4" />
+              <div className="terminal-border p-1.5 sm:p-2 bg-muted flex-shrink-0">
+                <User className="h-3 w-3 sm:h-4 sm:w-4" />
               </div>
             )}
           </div>
@@ -121,22 +124,22 @@ export function ChatInterface() {
       </div>
 
       {/* Input Area */}
-      <div className="terminal-border p-4 m-4">
+      <div className="terminal-border p-2 sm:p-4 m-2 sm:m-4">
         <div className="flex gap-2">
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Describe your ideal candidate (e.g., 'Senior React developer with 5+ years experience in San Francisco')..."
+            placeholder="Describe your ideal candidate (e.g., 'Senior React developer with 5+ years experience in San Francisco')...or just dump the Job Description here ;)"
             disabled={isLoading}
-            className="flex-1 terminal-border bg-input"
+            className="flex-1 terminal-border bg-input text-sm"
           />
           <Button
             onClick={handleSend}
             disabled={!input.trim() || isLoading}
             variant="default"
             size="icon"
-            className="terminal-border bg-primary hover:bg-primary/90"
+            className="terminal-border bg-primary hover:bg-primary/90 flex-shrink-0"
           >
             <Send className="h-4 w-4" />
           </Button>
