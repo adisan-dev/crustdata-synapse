@@ -41,7 +41,7 @@ const ChatContext = createContext<ChatContextType | undefined>(undefined);
 
 const initialMessage: Message = {
   id: '1',
-  content: 'Welcome to Synapse! 🧠 I\'m your AI recruitment assistant. Describe your ideal candidate requirements (skills, experience, location, etc.) and I\'ll help you find just the perfect candidates! What type of candidate are you looking for?',
+  content: 'Welcome to Synapse! I\'m your AI recruitment assistant. Describe your ideal candidate requirements (skills, experience, location, etc.) and I\'ll help you find just the perfect candidates! What type of candidate are you looking for?',
   role: 'assistant',
   timestamp: new Date(),
 };
